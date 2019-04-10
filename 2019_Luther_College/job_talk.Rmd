@@ -1,0 +1,548 @@
+---
+title: "Data Science Careers"
+subtitle: "for Behavioral and Social Science Majors"
+author: "Justin Marschall | D.M. Services, Inc."
+date: "April 11, 2019"
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: images/colony_brands_logo_square.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Slides
+
+https://github.com/justinmarschall/presentations
+
+```{r set up, echo=FALSE}
+library(tidyverse)
+```
+
+## Overview
+
+- My career path
+- Data science as fulfilling work
+- How to get a job in data science
+- Appendix
+    - Installing R & RStudio
+    - Resources to learn R
+    - Publicly available data
+
+# My Career Path
+
+## Education
+
+- Luther College '12
+    - B.A.
+    - Major: Psychology
+    - Minor: Music
+    - Research: Forgiveness and Health
+- Iowa State University '15
+    - M.S. & Certificate in Quantitative Psychology
+    - Major: Psychology
+    - Research: Police Interrogation Tactics and False Confessions; Quantitative Methods
+    
+## Job History
+
+- D.M. Services, Inc. (2015 - Current)
+    - Customer Satisfaction Data Analyst
+    - Data Scientist
+  
+## Getting from A to B
+
+- Major interests
+    - Working with data
+    - Programming
+- Skills
+    - Research methods
+    - Statistics and modeling
+    - Design of experiments
+    - Diverse research background
+    - Communicating to non-technical audience
+    
+---
+
+<center>
+
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1754_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"/m/0jt3_q3","geo":"US","time":"2004-01-01 2019-04-09"}],"category":0,"property":""}, {"exploreQuery":"date=all&geo=US&q=%2Fm%2F0jt3_q3","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+
+</center>
+    
+## Common Educational Tracks for Data Science
+
+- Statistics
+- Computer Science
+- Economics
+- Math
+- Business
+- *Psychology*
+- Physics
+- Engineering
+- "...or other related quantitative field of study"
+
+---
+
+<!-- http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram -->
+
+```{r, echo=FALSE, fig.align='center', fig.height=6}
+png_ds <- png::readPNG("images/Data_Science_VD.png")
+grid::grid.raster(png_ds)
+```
+
+<div class="notes">
+
+The Data Science Venn Diagram
+
+&copy; Drew Conway Data Consulting, LLC. 2015
+
+Used under [Creative Commons Attribution-NonCommercial License](https://creativecommons.org/licenses/by-nc/3.0/legalcode)
+
+http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram
+
+</div>
+
+---
+
+<!-- https://www.luther.edu/computer-science/data-science-major/ -->
+
+```{r, echo=FALSE, fig.align='center', fig.height=6}
+png_lc <- png::readPNG("images/LC_Data_Science.png")
+grid::grid.raster(png_lc)
+```
+
+<div class="notes">
+
+Luther College Data Science Major
+
+https://www.luther.edu/computer-science/data-science-major/
+
+</div>
+
+---
+
+<center>
+
+<blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="und" dir="ltr"> <a href="https://t.co/RHyJ0I5a4K">pic.twitter.com/RHyJ0I5a4K</a></p>&mdash; John Swain (@swainjo) <a href="https://twitter.com/swainjo/status/1108006110517174273?ref_src=twsrc%5Etfw">March 19, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</center>
+
+# Data Science as Fulfilling Work
+
+## What Do You Do?
+
+- Data wrangling
+- Feature engineering
+- Statistical modeling
+- Report creation
+- Make empirical predictions
+- Design experiments
+- Employee interviewing and onboarding
+- Professional development
+- Code development
+- Auditing
+
+## What Do You *Actually* Do?
+
+- Help the company make good decisions (with data)
+
+## How Do You Do That?
+
+<!-- https://r4ds.had.co.nz/introduction.html -->
+
+```{r, echo=FALSE, fig.align='center'}
+png_r_4_ds <- png::readPNG("images/r_4_data_science.png")
+grid::grid.raster(png_r_4_ds)
+```
+
+<div class="notes">
+
+R for Data Science  
+
+Wickham & Grolemund (2017)
+
+https://r4ds.had.co.nz/
+
+Used under [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 License](https://creativecommons.org/licenses/by-nc-nd/3.0/us/legalcode)
+
+</div>
+
+## Typical Questions
+
+- How likely is it that customer will respond to a marketing campaign?
+- Given response, will customer pay their bill?
+- Is customer actually who they say they are?
+- What products should we market to customer?
+- What are the strongest predictors of customer satisfaction?
+- What factors contribute to call duration and call silence?
+- What is the best way to measure phone agent quality?
+
+## Why Data Science?
+
+- Fast-paced work
+- Always working on something new
+- Access to data on massive scale
+- Large impact on business
+- Consult with other DS on their work
+- Complex problems require high attention to detail and technical skill
+- An engaging field of work that demands lifelong-learning
+
+## Behavioral Statistics vs. Machine Learning
+
+<div style="float: left; width: 45%;">
+
+### **Behavioral Statistics**
+
+- Interpretability
+- Theoretical
+- Common analytic tools
+    - `lm()`
+    - `glm()`
+    - `aov()`
+    - `t.test()`
+</div>
+
+<div style="float: right; width: 55%;">
+
+### **Machine Learning**
+
+- Predictability
+- Applied
+- Common analytic tools
+    - `nnet::nnet()`
+    - `xgboost::xgboost()`
+    - `sparklyr::ml_random_forest()`
+</div>
+
+---
+
+<!-- https://xkcd.com/1838/ -->
+
+```{r, echo=FALSE, fig.align='center', fig.height=6}
+png_xkcd <- png::readPNG("images/xkcd_machine_learning.png")
+grid::grid.raster(png_xkcd)
+```
+
+<div class="notes">
+
+XKCD Machine Learning
+
+Used under [Creative Commons Attribution-NonCommercial 2.5 License](https://creativecommons.org/licenses/by-nc/2.5/legalcode)
+
+https://xkcd.com/1838/
+
+</div>
+
+## Exciting Topics in Data Science
+
+- Machine learning
+- Deep learning
+- Optimization
+- Automation
+- Recommendation engines
+- Natural language processing
+
+# Getting a Job
+
+## Soft Skills
+
+- Curiosity
+- Creativity
+- Competency
+- Communication
+
+## Hard Skills
+
+- Coding/BI
+    - SQL
+    - R
+    - Python
+    - Shell
+    - Excel
+    - Git/GitHub
+- Statistics
+    - Predictive modeling
+    - Machine learning
+  
+## How to Develop Technical Skills
+
+- Take a class/minor/major
+- Open source books (see Appendix)
+- [Codecademy](https://www.codecademy.com)
+- [Stack Overflow](https://stackoverflow.com/)
+- [Kaggle](https://www.kaggle.com/)
+- [FiveThirtyEight Riddler Puzzles](https://fivethirtyeight.com/tag/the-riddler/)
+- [Twitter](https://twitter.com/)
+    - \#rstats
+    - \#TidyTuesday
+  
+## FiveThirtyEight: The Riddler
+
+How many games would we expect to be needed to complete a best-of-seven series if each team has a 50 percent chance of winning each individual game?  
+
+How about if one team has a 60 percent chance of winning each game?  
+
+How about 70?
+
+[Riddle](https://fivethirtyeight.com/features/how-much-should-you-bid-for-that-painting/)  
+[Answer](https://fivethirtyeight.com/features/can-you-crack-this-squares-hidden-code/)
+
+---
+
+```{r}
+riddler <- function(a_pr = 0.5) {
+  a_wins <- 0
+  b_wins <- 0
+  
+  while (a_wins < 4 && b_wins < 4) {
+    game <- sample(c("A", "B"),
+                   size = 1,
+                   prob = c(a_pr, 1 - a_pr))
+    
+    if (game == "A") {
+      a_wins <- a_wins + 1
+    } else {
+      b_wins <- b_wins + 1
+    }
+    
+  }
+  
+  data.frame(a_pr = a_pr,
+             n_games = a_wins + b_wins)
+  
+}
+```
+
+---
+
+```{r}
+set.seed(20190411)
+
+riddler()
+```
+
+---
+
+```{r, cache=TRUE}
+rep(c(0.5, 0.6, 0.7), each = 2)
+
+library(tidyverse)
+
+set.seed(20190411)
+
+map_dfr(rep(c(0.5, 0.6, 0.7), each = 10000),
+        riddler) %>% 
+  head()
+```
+
+---
+
+```{r, cache=TRUE}
+set.seed(20190411)
+
+map_dfr(rep(c(0.5, 0.6, 0.7), each = 10000),
+        riddler) %>% 
+  group_by(a_pr) %>% 
+  summarize(avg_games = mean(n_games),
+            n = n())
+```
+
+## A Great Riddle!
+
+- Creating user functions
+- `while()` loops
+- `if()` logic
+- Diverse data structures
+- Simulation
+- Iteration
+- Descriptive statistics
+- Auditing code and results
+- Easy to extend and visualize
+
+---
+
+```{r, eval=FALSE}
+library(plotly)
+
+set.seed(20190411)
+
+# this simulation will take longer to run
+map_dfr(rep(seq(0.50, 1.00, 0.01), each = 10000),
+        riddler) %>% 
+  group_by(a_pr) %>% 
+  summarize(avg_games = mean(n_games),
+            n = n()) %>% 
+  plot_ly(x = ~a_pr, y = ~avg_games, type = "scatter", mode = "lines",
+          text = ~avg_games, hoverinfo = "x+text") %>% 
+  layout(title = "Expected Number of Games in Best-of-Seven Series 
+         \nGiven Varying Win Probability",
+         xaxis = list(title = "Team A Win Probability"),
+         yaxis = list(title = "Games", range = c(0, 7)),
+         hovermode = "compare")
+```
+
+---
+
+<center>
+
+```{r, echo=FALSE, fig.width=8, fig.height=6, cache=TRUE}
+library(plotly)
+
+set.seed(20190411)
+
+# this simulation will take longer to run
+map_dfr(rep(seq(0.50, 1.00, 0.01), each = 10000),
+        riddler) %>% 
+  group_by(a_pr) %>% 
+  summarize(avg_games = mean(n_games),
+            n = n()) %>% 
+  plot_ly(x = ~a_pr, y = ~avg_games, type = "scatter", mode = "lines",
+          text = ~avg_games, hoverinfo = "x+text") %>% 
+  layout(title = "Expected Number of Games in Best-of-Seven Series \nGiven Varying Win Probability",
+         xaxis = list(title = "Team A Win Probability"),
+         yaxis = list(title = "Games", range = c(0, 7)),
+         hovermode = "compare")
+```
+
+</center>
+
+## Ways to Stay Up-to-Date
+
+<div style="float: left; width: 55%;">
+
+- Follow top packages and developers
+    - [Hadley Wickham](https://github.com/hadley)
+    - [Romain François](https://github.com/romainfrancois)
+    - [Jenny Bryan](https://github.com/jennybc)
+- Subscribe to DS blogs/podcasts
+    - [R Views](https://rviews.rstudio.com/)
+    - [Stack Overflow Blog](https://stackoverflow.blog/)
+    - [Not So Standard Deviations](http://nssdeviations.com/)
+    - [Variance Explained](http://varianceexplained.org/)
+    - [Live Free or Dichotomize](https://livefreeordichotomize.com/)
+    
+</div>
+
+<div style="float: right; width: 45%;">
+
+- Attend conferences
+    - [rstudio::conf](https://www.rstudio.com/conference/)
+    - [useR!](https://www.r-project.org/conferences/)
+    
+</div>
+
+## Advice to Get Hired
+
+- Internship
+- Graduate school
+- Complete a research project outside of class
+    - Faculty research
+    - Web scraping
+    - Publicly available data (see Appendix)
+    
+# Contact
+
+## Colony Brands, Inc.
+
+<div style="float: left; width: 38%;">
+- Analytic opportunities
+    - Credit risk
+    - Marketing
+    - Retail
+    - Product
+    - Fraud
+    - Customer experience
+- Paid summer internship
+- Full-time analyst position
+</div>
+
+<div style="float: right; width: 62%;">
+```{r, echo=FALSE, fig.align='left'}
+png_cb <- png::readPNG("images/colony_brands_logo.png")
+grid::grid.raster(png_cb, height = 0.5)
+```
+</div>
+
+To apply or learn more visit [www.colonybrands.com](https://www.colonybrands.com)
+
+## R You Ready? Taking Small Steps Toward Becoming an R Statistics User
+
+- Talk
+    - **Friday, April 12 (TOMORROW)**
+    - **4:00 pm**
+    - **Valders 350**
+- Overview
+    - Getting Started
+    - Essential R: 10 Packages for the New and Intermediate UseR
+    - Resources for Future Learning
+
+## Contact
+\
+`r fontawesome::fa("envelope", fill = "steelblue")` justin.marschall<!-- -->@imsdm.com  
+`r fontawesome::fa("twitter", fill = "steelblue")` jcmarschall  
+`r fontawesome::fa("github", fill = "steelblue")` justinmarschall  
+`r fontawesome::fa("linkedin", fill = "steelblue")` justinmarschall
+
+## Slides
+
+https://github.com/justinmarschall/presentations
+
+# Appendix
+
+## Installing R & RStudio
+
+- [R](https://mirror.las.iastate.edu/CRAN/)
+- [RStudio](https://www.rstudio.com/products/rstudio/download/)
+
+## Resources to Learn R
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [Advanced R](https://adv-r.hadley.nz/)
+- [The Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/)
+- [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
+- [Learning Statistics with R](https://learningstatisticswithr.com/book/)
+- [The tidyverse style guide](https://style.tidyverse.org/)
+- [Applied Predictive Modeling](http://appliedpredictivemodeling.com/)
+
+## More Resources to Learn R
+
+- [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+- [RStudio Online Learning](https://www.rstudio.com/online-learning/)
+- [RStudio Webinars](https://resources.rstudio.com/webinars)
+- [Codecademy](https://www.codecademy.com)
+- [R Vocabulary](http://adv-r.had.co.nz/Vocabulary.html)
+- [swirl](https://swirlstats.com/)
+- [Happy Git and GitHub for the useR](https://happygitwithr.com/)
+
+## Publicly Available Data
+
+- [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/index.php)
+- [Kaggle](https://www.kaggle.com/datasets)
+- [Sports Reference](https://www.sports-reference.com/)
+- [Quandl](https://www.quandl.com/)
+- [data.gov](https://www.data.gov/)
+- [FiveThirtyEight](https://data.fivethirtyeight.com/)
+- Built-in data sets in R
+
+```{r, eval=FALSE}
+data()
+```
+
+## Licenses
+
+- The Data Science Venn Diagram
+    - http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram
+    - [Creative Commons Attribution-NonCommercial License](https://creativecommons.org/licenses/by-nc/3.0/legalcode)
+    - &copy; Drew Conway Data Consulting, LLC. 2015
+- R for Data Science
+    - https://r4ds.had.co.nz/
+    - [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 License](https://creativecommons.org/licenses/by-nc-nd/3.0/us/legalcode)
+    - Wickham & Grolemund (2017)
+- XKCD Machine Learning
+    - https://xkcd.com/1838/
+    - [Creative Commons Attribution-NonCommercial 2.5 License](https://creativecommons.org/licenses/by-nc/2.5/legalcode)
+
+

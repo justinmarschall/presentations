@@ -1,0 +1,1164 @@
+---
+title: "R You Ready?"
+subtitle: "Taking Small Steps Toward Becoming an R Statistics User"
+author: "Justin Marschall | D.M. Services, Inc."
+date: "April 12, 2019"
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: images/r_logo_square_clean.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Slides
+
+https://github.com/justinmarschall/presentations
+
+```{r set up, echo=FALSE}
+library(tidyverse)
+```
+
+## Philosophy
+
+- Breadth vs. depth of knowledge
+- You can always look something up to learn more, but you should first know that it exists
+- Takeaway: file some of this talk away for future learning
+
+## Overview
+
+- Getting Started
+    - What?
+    - Why?
+    - How? (Installing R & RStudio)
+    - Basics
+- Essential R: 10 Packages for the New and Intermediate UseR
+- Appendix
+    - Resources to learn R
+    - Publicly available data
+    - R-centric academic journals
+    - Specific resources for 10 essential packages
+    
+# Getting Started
+
+## R
+
+- Programming language
+- Open-source project
+- Encourages user contribution and package development
+- Popular in statistics, research, academia, and data science
+
+## RStudio
+
+- IDE
+- Open-source project
+- One of many possible environments to run R code
+- Highly recommended
+
+## R & RStudio are great at...
+
+<div style="float: left; width: 50%;">
+
+- [Statistics](https://learningstatisticswithr.com/book/)
+- [Machine learning](https://spark.rstudio.com/)
+- [Deep learning](https://blog.rstudio.com/2018/09/12/getting-started-with-deep-learning-in-r/)
+- [Data viz](https://github.com/tidyverse/ggplot2)
+- [Reproducible research](https://rmarkdown.rstudio.com/)
+- [Publishing books](https://bookdown.org/)
+- [Version control](https://happygitwithr.com/)
+- [Documentation](https://cran.r-project.org/web/packages/dplyr/index.html)
+
+</div>
+
+<div style="float: right; width: 50%;">
+
+- [Dashboards and reporting](https://rmarkdown.rstudio.com/flexdashboard/)
+- [Creating conference posters](https://github.com/brentthorne/posterdown)
+- [Database integration](https://db.rstudio.com/)
+- [Web apps](https://shiny.rstudio.com/)
+- [Development](http://r-pkgs.had.co.nz/)
+- [Unit testing](https://github.com/r-lib/testthat)
+- [Teaching](https://r4ds.had.co.nz/)
+
+</div>
+
+## Statistics
+
+- R is infinitely flexible
+- Open source nature allows for immediate access to newest techniques/algorithms/viz/etc.
+
+---
+
+```{r, echo=FALSE, fig.align='center', fig.height=6}
+ggplot(diamonds, aes(x = carat, y = price, color = color)) +
+  geom_point() +
+  # facet_wrap(. ~ cut) +
+  labs(x = "Carat", y = "Price", color = "Color", title = "Price of Diamonds by Carat, and Color") +
+  theme_minimal()
+```
+
+---
+
+```{r, echo=FALSE, fig.align='center', fig.height=6, fig.width=8, eval=FALSE}
+library(plotly)
+# example from https://plot.ly/r/figure-labels/
+
+n <- 100
+theta <- runif(n, 0, 2*pi)
+u <- runif(n, -1, 1)
+
+p <- plot_ly(x = ~sqrt(1 - u^2) * cos(theta), y = ~sqrt(1 - u^2) * sin(theta), z = ~u) %>%
+  layout(
+    scene = list(
+      xaxis = list(title = "Cos"),
+      yaxis = list(title = "Sin"),
+      zaxis = list(title = "Z")
+    ))
+
+htmlwidgets::saveWidget(as_widget(p), file = "images/3d_plot.html")
+```
+
+<iframe src="images/3d_plot.html" style = "position:absolute;height:80%;width:80%"></iframe>
+
+---
+
+```{r, echo=FALSE, fig.align='center', cache=TRUE, eval=FALSE}
+library(gapminder)
+library(gganimate)
+
+# example based on https://github.com/thomasp85/gganimate
+
+gganimate_plot <- 
+  ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7, show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  # facet_wrap(~continent) +
+  theme_minimal() +
+  labs(title = 'Year: {frame_time}', x = 'GDP Per Capita', y = 'Life Expectancy') +
+  transition_time(year) +
+  ease_aes('linear')
+
+anim_save("images/gapminder_900_600.gif", animate(gganimate_plot, width = 900, height = 600))
+```
+
+
+<center> ![](images/gapminder_900_600.gif) </center>
+
+<div class="notes">
+
+- Gapminder data
+    - x = gdpPercap (log scale)
+    - y = lifeExp
+    - size = pop
+    - color = country
+
+</div>
+
+
+## Dashboards
+
+https://rmarkdown.rstudio.com/flexdashboard/examples.html
+
+## Web Apps
+
+https://shiny.rstudio.com/gallery/
+
+## Reasons I Don't Like R
+
+\
+\
+\
+\
+\
+<center> *This page has been intentionally left blank.* </center>
+
+---
+
+<!-- https://stackoverflow.blog/2017/10/10/impressive-growth-r/ -->
+
+```{r, echo=FALSE, fig.align='center', fig.height=6}
+png_r <- png::readPNG("images/r_growth.png")
+grid::grid.raster(png_r)
+```
+
+<div class="notes">
+
+https://stackoverflow.blog/2017/10/10/impressive-growth-r/
+
+</div>
+
+---
+
+<!-- http://r4stats.com/articles/popularity/ -->
+
+```{r, echo=FALSE, fig.align='center', fig.height=6}
+png_job <- png::readPNG("images/job_posts.png")
+grid::grid.raster(png_job)
+```
+
+<div class="notes">
+
+http://r4stats.com/articles/popularity/
+
+</div>
+
+## And Did I Mention It's Free?
+
+## Installing R & RStudio
+
+- Download links
+    - [R](https://mirror.las.iastate.edu/CRAN/)
+    - [RStudio](https://www.rstudio.com/products/rstudio/download/)
+- R is just the language; RStudio is just the environment to run it in
+- Both downloads are required
+- Once installed, open RStudio
+
+```{r}
+print("Hello, World!")
+```
+
+# Basics
+
+## First Functions
+
+```{r, eval=FALSE}
+?mean
+```
+
+```{r}
+str(iris)
+```
+
+## Packages
+
+```{r, eval=FALSE}
+install.packages("tidyverse")
+
+library(tidyverse)
+
+devtools::install_github("hadley/tidyverse")
+```
+
+## Pipe
+
+```{r, eval=FALSE}
+library(tidyverse)
+
+count(iris, Species)
+```
+
+
+```{r}
+# ctrl + shift + m shortcut in RStudio
+iris %>% 
+  count(Species)
+```
+
+## Vectors
+
+```{r}
+head(iris$Sepal.Length)
+
+c(1, 2, 3, 4, 5)
+```
+
+## Assignment
+
+```{r}
+# alt + - shortcut in RStudio
+x <- 1:10
+
+x
+```
+
+## Type & Class
+
+```{r}
+str(iris)
+
+typeof(iris$Sepal.Length)
+
+class(iris$Sepal.Length)
+```
+
+## Coercion
+
+- `is.*()` and `as.*()` functions
+
+```{r}
+as.character(x)
+
+as.numeric(c(TRUE, FALSE))
+
+is.double(1.25)
+```
+
+## Missing
+
+```{r}
+x[3] <- NA; x
+
+is.na(x)
+
+mean(is.na(x))
+
+mean(x, na.rm = TRUE)
+```
+
+## Comments
+
+```{r}
+# good code includes comments
+
+# comment the why, not the what
+
+# ctrl + shift + c shortcut in RStudio
+```
+
+## First Model
+
+```{r}
+fit <- aov(Sepal.Length ~ Species, data = iris)
+
+summary(fit)
+```
+
+---
+
+```{r}
+TukeyHSD(fit)
+```
+
+
+## Misc.
+
+- R is case sensitive
+- R lets you do dumb things (*protip*: don't do dumb things)
+
+```{r}
+T
+
+T <- F
+
+T
+```
+
+```{r, echo=FALSE}
+# reset T for rest of document
+rm(T)
+```
+
+# Essential R: 10 Packages to Guide Future Learning
+
+## Overview
+
+- [dplyr](https://github.com/tidyverse/dplyr)
+- [ggplot2](https://github.com/tidyverse/ggplot2)
+- [tidyr](https://github.com/tidyverse/tidyr)
+- [broom](https://github.com/tidymodels/broom)
+- [purrr](https://github.com/tidyverse/purrr)
+- [plotly](https://github.com/ropensci/plotly)
+- [lubridate](https://github.com/tidyverse/lubridate)
+- [stringr](https://github.com/tidyverse/stringr)
+- [forcats](https://github.com/rstudio/forcats)
+- [rmarkdown](https://github.com/rstudio/rmarkdown)
+
+## tidyverse
+
+"The tidyverse is an opinionated collection of R packages designed for data science.  All packages share an underlying design philosophy, grammar, and data structures."
+
+https://www.tidyverse.org/
+
+```{r, eval=FALSE}
+library(tidyverse)
+```
+
+# dplyr
+
+## Purpose
+
+- A grammar of data manipulation
+- Manipulate, transform, and summarize data quickly
+- SQL-esque
+
+```{r}
+library(dplyr)
+```
+
+## Important Functions
+
+- `filter()`
+- `arrange()`
+- `select()` 
+- `rename()`
+- `mutate()` 
+- `summarize()`
+- `group_by()`
+- `ntile()`
+- `sample_n()`
+- `inner_join()`
+- `count()`
+
+---
+
+```{r}
+iris %>% 
+  group_by(Species) %>% 
+  summarize(mean_sl = mean(Sepal.Length),
+            sd_sl = sd(Sepal.Length),
+            n = n())
+```
+
+# ggplot2
+
+## Purpose
+
+- A graphical powerhouse, based on [The Grammer of Graphics](http://amzn.to/2ef1eWp)
+- Produces publication worthy data visualizations
+- Features built-in statistical tools
+- Incredibly customizable
+
+```{r}
+library(ggplot2)
+```
+
+## Formula
+
+- Every `ggplot` has 3 elements:
+    - Data
+    - Aesthetic mapping between variables and visuals
+    - Geom to render observations
+- Top-level `aes()` mapping inherited by downstream code
+- Additional layers and customization added as desired
+
+```{r, eval=FALSE}
+# basic structure
+ggplot(df, aes()) +
+  geom_*()
+```
+
+## Common Aesthetics
+
+- `x`
+- `y`
+- `alpha`
+- `color`
+- `fill`
+- `shape`
+- `size`
+- `linetype`
+
+## Common Geoms
+
+- `geom_col()`
+- `geom_bar()`
+- `geom_histogram()`
+- `geom_density()`
+- `geom_density2d()`
+- `geom_smooth()`
+- `geom_point()`
+- `geom_line()`
+- `geom_boxplot()`
+- `geom_raster()`
+- `geom_text()`
+
+---
+
+```{r, fig.align='center'}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point()
+```
+
+---
+
+```{r, fig.align='center'}
+ggplot(diamonds, aes(x = carat, y = price, color = color)) +
+  geom_point()
+```
+
+---
+
+```{r, fig.align='center'}
+ggplot(diamonds, aes(x = carat, y = price, color = color)) +
+  geom_point() +
+  facet_wrap(~cut)
+```
+
+---
+
+```{r, fig.align='center', message=FALSE}
+ggplot(diamonds, aes(x = carat, y = price, color = color)) +
+  geom_smooth() +
+  facet_wrap(~cut)
+```
+
+---
+
+```{r, fig.align='center', eval=FALSE}
+ggplot(diamonds, aes(x = carat, y = price, color = color)) +
+  geom_point() +
+  facet_grid(clarity~cut) +
+  labs(x = "Carat", 
+       y = "Price ($)", 
+       color = "Color", 
+       title = "Diamond Price by the 4 C's", 
+       subtitle = "Carat, Color, Cut, & Clarity") +
+  theme_minimal()
+```
+
+---
+
+```{r, fig.align='center', echo=FALSE, fig.width=8, fig.height=6}
+ggplot(diamonds, aes(x = carat, y = price, color = color)) +
+  geom_point() +
+  facet_grid(clarity~cut) +
+  labs(x = "Carat", 
+       y = "Price ($)", 
+       color = "Color", 
+       title = "Diamond Price by the 4 C's", 
+       subtitle = "Carat, Color, Cut, & Clarity") +
+  theme_minimal()
+```
+
+# tidyr
+
+## Purpose
+
+- Tidy, clean, reshape, & prepare data
+- [Tidy Data (Wickham, 2014)](https://www.jstatsoft.org/article/view/v059i10)
+    - Each variable forms a column
+    - Each observation forms a row
+    - Each type of observational unit forms a table
+  
+```{r}
+library(tidyr)
+```
+
+## Important Functions
+
+- `gather()`
+- `spread()`
+- `nest()`
+- `separate()`
+- `replace_na()`
+
+---
+
+```{r}
+tibble(norm_1 = rnorm(1000, mean = 0, sd = 1),
+       norm_2 = rnorm(1000, mean = 0, sd = 2),
+       norm_3 = rnorm(1000, mean = 0, sd = 3))
+```
+
+---
+
+```{r}
+tibble(norm_1 = rnorm(1000, mean = 0, sd = 1),
+       norm_2 = rnorm(1000, mean = 0, sd = 2),
+       norm_3 = rnorm(1000, mean = 0, sd = 3)) %>% 
+  gather(dist, value)
+```
+
+---
+
+```{r, eval=FALSE}
+tibble(norm_1 = rnorm(1000, mean = 0, sd = 1),
+       norm_2 = rnorm(1000, mean = 0, sd = 2),
+       norm_3 = rnorm(1000, mean = 0, sd = 3)) %>% 
+  gather(dist, value) %>% 
+  ggplot(aes(x = value, fill = dist)) +
+    geom_density(alpha = 0.6) +
+    labs(x = "Value", y = "Density", fill = "Distribution") +
+    scale_x_continuous(breaks = seq(-20, 20, 2.5)) +
+    scale_fill_viridis_d() +
+    theme_minimal()
+```
+
+---
+
+```{r, echo=FALSE, fig.align='center', fig.height=6}
+tibble(norm_1 = rnorm(1000, mean = 0, sd = 1),
+       norm_2 = rnorm(1000, mean = 0, sd = 2),
+       norm_3 = rnorm(1000, mean = 0, sd = 3)) %>% 
+  gather(dist, value) %>% 
+  ggplot(aes(x = value, fill = dist)) +
+    geom_density(alpha = 0.6) +
+    labs(x = "Value", y = "Density", fill = "Distribution") +
+    scale_x_continuous(breaks = seq(-20, 20, 2.5)) +
+    scale_fill_viridis_d() +
+    theme_minimal()
+```
+
+## NEW! Pivoting
+
+<center>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">You may have heard a rumour that gather/spread are going away. This is simply not true (they'll stay around forever) but I am working on better replacements which you can learn about at <a href="https://t.co/sU2GzWeBaf">https://t.co/sU2GzWeBaf</a>. Now is a great time for feedback! <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a></p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/1108107722128613377?ref_src=twsrc%5Etfw">March 19, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</center>
+
+# broom
+
+## Purpose
+
+- Provides summary statistical information in easy to use tables
+
+```{r}
+library(broom)
+```
+
+## Important Functions
+
+- `tidy()`
+- `glance()`
+- `augment()`
+
+## Motivation
+
+```{r, eval=FALSE}
+fit <- lm(price ~ carat, data = diamonds)
+
+summary(fit)
+```
+
+## Motivation
+
+```{r, echo=FALSE}
+fit <- lm(price ~ carat, data = diamonds)
+
+summary(fit)
+```
+
+## `tidy()` & `glance()`
+
+```{r}
+tidy(fit)
+glance(fit)
+```
+
+## `augment()`
+
+```{r}
+augment(fit)
+```
+
+# purrr
+
+## Purrrpose
+
+- Functional programming toolkit
+- Dramatically improves iteration process
+- Can often replace `for()` loops with better performance and increased transparency in code
+- More predictable output than base R's `apply()` family of functions
+
+## Important Functions
+
+- `map()`
+- `map2()`
+- `pmap()`
+
+## Type Stability
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::kable(data.frame(Function = c("map", "map_chr", "map_dbl", "map_dfc", "map_dfr", "map_int", "map_lgl", "walk"),
+                        Returns = c("list", "character vector", "double (numeric) vector", "data frame (column bind)",
+                                    "data frame (row bind)", "integer vector", "logical vector", "invisible")))
+```
+
+## DRY = Don't Repeat Yourself
+
+```{r, eval=FALSE}
+# imagine data.frame object d already exists and we're creating new, random variables
+d$var1  <- rnorm(n = 1000, mean = 1)
+d$var2  <- rnorm(n = 1000, mean = 2)
+d$var3  <- rnorm(n = 1000, mean = 3)
+d$var3  <- rnorm(n = 1000, mean = 4)
+d$var5  <- rnorm(n = 1000, mean = 5)
+d$var6  <- rnorm(n = 1000, mean = 6)
+d$var7  <- rnorm(n = 1000, mean = 7)
+d$var8  <- rnorm(n = 1000, mean = 8)
+d$var9  <- rnorm(n = 1000, mean = 9)
+d$var10 <- rnorm(n = 1000, mean = 10)
+```
+
+> - Did you catch the typo?
+
+## `map()`
+
+```{r}
+map_dfc(1:10, rnorm, n = 1000)
+```
+
+# plotly
+
+## Purpose
+
+- Create interactive visualizations that render in HTML
+- Great integration with `rmarkdown` and `shiny`
+- Impress your friends
+
+```{r}
+library(plotly)
+```
+
+## Important Functions
+
+- `ggplotly()`
+- `plot_ly()`
+- `add_trace()`
+- `layout()`
+
+## ggplotly()
+
+- Build your plot in `ggplot2` and wrap it in a `ggplotly()` function
+- Might have some limitations, but will cover most use-cases
+
+```{r, fig.align='center', eval=FALSE}
+p <- 
+  ggplot(diamonds, aes(x = cut, y = price)) + 
+    geom_boxplot()
+
+ggplotly(p)
+```
+
+---
+
+<center>
+
+```{r, fig.align='center', echo=FALSE, fig.height=6}
+p <- 
+  ggplot(diamonds, aes(x = cut, y = price)) + 
+    geom_boxplot()
+
+ggplotly(p)
+```
+
+</center>
+
+---
+
+```{r, eval=FALSE}
+plot_ly(iris, x = ~Sepal.Length, y = ~Sepal.Width, 
+        text = ~Species, color = ~Species, colors = "Set1") %>% 
+  add_trace(type = 'scatter', mode = 'markers') %>% 
+  layout(xaxis = list(title = "Sepal Length"),
+         yaxis = list(title = "Sepal Width"),
+         title = "Iris Data")
+```
+
+---
+
+<center>
+
+```{r, echo=FALSE, fig.height=6}
+plot_ly(iris, x = ~Sepal.Length, y = ~Sepal.Width, text = ~Species, color = ~Species, colors = "Set1") %>% 
+  add_trace(type = 'scatter', mode = 'markers') %>% 
+  layout(xaxis = list(title = "Sepal Length"),
+         yaxis = list(title = "Sepal Width"),
+         title = "Iris Data")
+```
+
+</center>
+
+---
+
+```{r, eval=FALSE}
+library(gapminder)
+
+gapminder %>%
+  plot_ly(
+    x = ~gdpPercap, 
+    y = ~lifeExp, 
+    size = ~pop, 
+    color = ~continent, 
+    colors = "Set1",
+    frame = ~year, 
+    text = ~country, 
+    hoverinfo = "text",
+    type = "scatter",
+    mode = "markers"
+  ) %>%
+  layout(
+    xaxis = list(
+      type = "log"
+    )
+  )
+```
+
+---
+
+<center>
+
+```{r, echo=FALSE, fig.align='center', fig.width=8, fig.height=6}
+# example from https://plot.ly/r/animations/
+
+gapminder::gapminder %>%
+  plot_ly(
+    x = ~gdpPercap, 
+    y = ~lifeExp, 
+    size = ~pop, 
+    color = ~continent, 
+    colors = "Set1",
+    frame = ~year, 
+    text = ~country, 
+    hoverinfo = "text",
+    type = "scatter",
+    mode = "markers"
+  ) %>%
+  layout(
+    xaxis = list(
+      type = "log"
+    )
+  )
+```
+
+</center>
+
+# lubridate
+
+## Purpose
+
+- Makes working with dates in R very *smooth*
+- Package good at...
+    - Parsing date-time variables
+    - Subsetting dates
+    - Date math and manipulation
+
+```{r}
+library(lubridate)
+```
+
+## Date Parsing
+
+- Convert strings or numbers to date-time
+- Multiple functions to aid with this, depending on information and ordering
+
+```{r}
+ymd(20190412)
+
+mdy("April 12th, 2019")
+```
+
+## Subsetting
+
+- Again, multiple functions--these are just a few
+
+```{r}
+now()
+
+year(now())
+
+month(now(), label = TRUE, abbr = FALSE)
+```
+
+## Math
+
+```{r}
+ymd(20190330) - months(1)
+
+ymd(20190330) %m-% months(1)
+```
+
+# stringr
+
+## Purpose
+
+- String manipulation for the `tidyverse`
+- A more predictable and transparent API than base R's `grep()` family of functions
+
+```{r}
+library(stringr)
+```
+
+## Major Features
+
+<!-- summary from https://github.com/rstudio/cheatsheets/raw/master/strings.pdf -->
+
+- Detect matches
+- Mutate strings
+- Subset strings
+- Join and split
+- Manage lengths
+- Order strings
+- Regular expressions
+
+---
+
+```{r}
+names(iris)
+
+iris %>% 
+  as_tibble() %>% 
+  rename_all(funs(str_to_lower(str_replace_all(., "\\.", "_")))) %>% 
+  head()
+```
+
+# forcats
+
+## Purpose
+
+- Functions *for cat*egorical data (factors)
+
+```{r}
+library(forcats)
+```
+
+## Major Features
+
+<!-- summary from https://github.com/rstudio/cheatsheets/raw/master/factors.pdf -->
+
+- Inspect factors
+- Combine factors
+- Change the order of levels
+- Change the value of levels
+- Add or drop levels
+
+---
+
+<center>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I feel like I make this plot every day: count, fct_reorder, geom_col, coord_flip <a href="https://twitter.com/robinson_es?ref_src=twsrc%5Etfw">@robinson_es</a> <a href="https://twitter.com/hashtag/rstatsnyc?src=hash&amp;ref_src=twsrc%5Etfw">#rstatsnyc</a> <a href="https://t.co/2jdlJRWdBe">pic.twitter.com/2jdlJRWdBe</a></p>&mdash; David Robinson (@drob) <a href="https://twitter.com/drob/status/987345209699766272?ref_src=twsrc%5Etfw">April 20, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</center>
+
+---
+
+```{r, fig.align='center', eval=FALSE}
+diamonds %>% 
+  count(cut) %>% 
+  mutate(cut = fct_reorder(cut, n)) %>% 
+  ggplot(aes(x = cut, y = n)) +
+    geom_col() +
+    coord_flip()
+```
+
+---
+
+```{r, fig.align='center', echo=FALSE, fig.height=6}
+diamonds %>% 
+  count(cut) %>% 
+  mutate(cut = fct_reorder(cut, n)) %>% 
+  ggplot(aes(x = cut, y = n)) +
+    geom_col() +
+    coord_flip()
+```
+
+# rmarkdown
+
+## Purpose
+
+- Produce "...high quality documents, reports, presentations and dashboards"
+- Excels in reproducible, interactive, parameterized work
+- Great for teaching and sharing code
+
+https://rmarkdown.rstudio.com/
+
+```{r}
+library(rmarkdown)
+```
+
+---
+
+```{r, echo=FALSE, fig.align='center'}
+png_md <- png::readPNG("images/rmarkdown.png")
+grid::grid.raster(png_md)
+```
+
+---
+
+```{r, echo=FALSE, fig.align='center'}
+png_md_ex <- png::readPNG("images/rmarkdown_example.png")
+grid::grid.raster(png_md_ex)
+```
+
+## Language Engines
+
+```{r}
+names(knitr::knit_engines$get())
+```
+
+https://bookdown.org/yihui/rmarkdown/language-engines.html
+
+## Output
+
+- HTML
+- PDF
+- Microsoft Word
+- OpenDocument Text
+- Rich Text Format
+- Markdown
+- Github compatible markdown
+- ioslides HTML slides (the format of this presentation!)
+- slidy HTML slides
+- Beamer pdf slides
+
+# Honorable Mention
+
+---
+
+- [shiny](https://github.com/rstudio/shiny) and [shinydashboard](https://github.com/rstudio/shinydashboard)
+- [gganimate](https://github.com/thomasp85/gganimate)
+- [flexdashboard](https://github.com/rstudio/flexdashboard)
+- [zoo](https://cran.r-project.org/web/packages/zoo/vignettes/zoo-quickref.pdf)
+- [psych](https://cran.r-project.org/web/packages/psych/vignettes/intro.pdf)
+- [readr](https://github.com/tidyverse/readr)
+- [readxl](https://github.com/tidyverse/readxl)
+- [haven](https://github.com/tidyverse/haven)
+- [devtools](https://github.com/r-lib/devtools)
+- [recipes](https://github.com/tidymodels/recipes)
+- [caret](https://github.com/topepo/caret)
+- [parsnip](https://github.com/tidymodels/parsnip)
+- [gt](https://github.com/rstudio/gt)
+
+# Contact
+
+## Colony Brands, Inc.
+
+<div style="float: left; width: 38%;">
+- Analytic opportunities
+    - Credit risk
+    - Marketing
+    - Retail
+    - Product
+    - Fraud
+    - Customer experience
+- Paid summer internship
+- Full-time analyst position
+</div>
+
+<div style="float: right; width: 62%;">
+```{r, echo=FALSE, fig.align='left'}
+png_cb <- png::readPNG("images/colony_brands_logo.png")
+grid::grid.raster(png_cb, height = 0.5)
+```
+</div>
+
+To apply or learn more visit [www.colonybrands.com](https://www.colonybrands.com)
+
+## Contact
+\
+`r fontawesome::fa("envelope", fill = "steelblue")` justin.marschall<!-- -->@imsdm.com  
+`r fontawesome::fa("twitter", fill = "steelblue")` jcmarschall  
+`r fontawesome::fa("github", fill = "steelblue")` justinmarschall  
+`r fontawesome::fa("linkedin", fill = "steelblue")` justinmarschall
+
+## Slides
+
+https://github.com/justinmarschall/presentations
+
+# Appendix
+
+## Resources to Learn R
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [Advanced R](https://adv-r.hadley.nz/)
+- [The Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/)
+- [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
+- [Learning Statistics with R](https://learningstatisticswithr.com/book/)
+- [The tidyverse style guide](https://style.tidyverse.org/)
+- [Applied Predictive Modeling](http://appliedpredictivemodeling.com/)
+
+## More Resources to Learn R
+
+- [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+- [RStudio Online Learning](https://www.rstudio.com/online-learning/)
+- [RStudio Webinars](https://resources.rstudio.com/webinars)
+- [Codecademy](https://www.codecademy.com)
+- [R Vocabulary](http://adv-r.had.co.nz/Vocabulary.html)
+- [swirl](https://swirlstats.com/)
+- [Happy Git and GitHub for the useR](https://happygitwithr.com/)
+
+## Publicly Available Data
+
+- [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/index.php)
+- [Kaggle](https://www.kaggle.com/datasets)
+- [Sports Reference](https://www.sports-reference.com/)
+- [Quandl](https://www.quandl.com/)
+- [data.gov](https://www.data.gov/)
+- [FiveThirtyEight](https://data.fivethirtyeight.com/)
+- Built-in data sets in R
+
+```{r, eval=FALSE}
+data()
+```
+
+## Journals
+
+- [The R Journal](https://journal.r-project.org/)
+- [Journal of Statistical Software](https://www.jstatsoft.org/index)
+
+## dplyr Resources
+
+- [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+- [Introduction to dplyr](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html)
+- [Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html)
+- [Window functions](https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html)
+
+## ggplot2 Resources
+
+- [ggplot2 cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+- [Aesthetic specifications](https://cran.r-project.org/web/packages/ggplot2/vignettes/ggplot2-specs.html)
+- [tidyverse: ggplot2](https://ggplot2.tidyverse.org/)
+- [ggplot2 extensions](http://www.ggplot2-exts.org/)
+
+## tidyr Resources
+
+- [tidyr cheat sheet (see pg. 2)](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
+- [Tidy data](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
+- [Introducing tidyr](https://blog.rstudio.com/2014/07/22/introducing-tidyr/)
+
+## broom Resources
+
+- [Introduction to broom](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
+- [Solving the model representation problem with broom](https://github.com/alexpghayes/workshops_presentations/blob/master/2019-01-18-rstudioconf-broom-talk.pdf)
+
+## purrr Resources
+
+- [purrr cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf)
+- [purrr tutorial](https://jennybc.github.io/purrr-tutorial/)
+- [Intro to purrr](https://emoriebeck.github.io/R-tutorials/purrr/)
+- [purrr cookbook](http://colinfay.me/purrr-cookbook/)
+
+## plotly Resources
+
+- [plotly cheat sheet](https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf?_ga=2.83129942.177038501.1552665320-603563078.1551999366)
+- [plotly R Open Source Graphing Library](https://plot.ly/r/)
+- [plotly for R](https://plotly-r.com/)
+
+## lubridate Resources
+
+- [lubridate cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/lubridate.pdf)
+- [Introduction to lubridate](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html)
+
+## stringr Resources
+
+- [stringr cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)
+- [Introduction to stringr](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html)
+
+## forcats Resources
+
+- [forcats cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/factors.pdf)
+- [Introduction to forcats](https://cran.r-project.org/web/packages/forcats/vignettes/forcats.html)
+
+## rmarkdown Resources
+
+- [R Markdown cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+- [R Markdown home page](https://rmarkdown.rstudio.com/)
+- [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+
+## Links to Referenced Works on R's Usage
+
+- https://stackoverflow.blog/2017/10/10/impressive-growth-r/
+- http://r4stats.com/articles/popularity/
+
+## License
+
+- R Logo 
+    - [CC-BY-SA 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/legalcode); Modified to be square
+    - https://www.r-project.org/logo/
